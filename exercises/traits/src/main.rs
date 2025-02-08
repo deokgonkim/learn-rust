@@ -1,4 +1,5 @@
 use traits::KoreanShortCut;
+use traits::cat_petting;
 use traits::Cat;
 
 fn main() {
@@ -8,5 +9,6 @@ fn main() {
     };
 
     println!("Here is neo {:#?}", neo);
-    println!("Neo says {}", neo.say());
+    // println!("Neo says {}", neo.say());
+    cat_petting(&neo);
 }
