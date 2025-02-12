@@ -12,6 +12,9 @@ fn main() {
         panic!("Error: {e}")
     });
     dbg!(&config);
-    run(&config);
+    let result = run(&config);
+    if let Err(e) = result {
+        panic!("Error: {e}")
+    }
 }
 
