@@ -26,7 +26,7 @@ impl Config {
     /// ```
     /// use std::env;
     /// use minigrep::Config;
-    //
+    ///
     /// let config = Config::build(&env::args().collect());
     /// ```
     pub fn build(args: &Vec<String>) -> Result<Self, &'static str> {
