@@ -24,7 +24,10 @@ impl Config {
     /// # Example
     ///
     /// ```
-    /// let config = Config::build(env::args().collect());
+    /// use std::env;
+    /// use minigrep::Config;
+    //
+    /// let config = Config::build(&env::args().collect());
     /// ```
     pub fn build(args: &Vec<String>) -> Result<Self, &'static str> {
         if args.len() < 2 {
