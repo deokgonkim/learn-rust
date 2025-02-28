@@ -5,9 +5,22 @@ use std::cell::RefCell;
 use std::thread::spawn;
 use std::sync::mpsc;
 
+#[derive(Debug)]
+struct Message {
+    message: String,
+    sender: String,
+}
+
+impl ToString for Message {
+    fn to_string(&self) -> String {
+        format!("message: {}, sender: {}", self.message, self.sender)
+    }
+}
+
 
 fn main() {
     let (tx, rx) = mpsc::channel();
+    let another_tx = tx.clone();
 
     // `move` is required to use `tx` inside of closure
     spawn(move || {
@@ -21,8 +34,26 @@ fn main() {
         // println!("Sent {}", anotherString);
     });
 
+    spawn(move || {
+        let newMessage = Message {
+            message: "Hello".to_string(),
+            sender: "This is a new thread".to_string()
+        };
+
+        another_tx.send(newMessage.to_string());
+    });
+
     println!("This is main thread");
-    let received = rx.recv().unwrap();
-    println!("Received {received}");
+    loop {
+        /*
+        let result = rx.recv();
+        let received = match result {
+            Ok(e) => e,
+            Err(e) => panic!("{}", e)
+        };
+        */
+        let received = rx.recv().unwrap();
+        println!("Received {:#?}", received);
+    }
 }
 
