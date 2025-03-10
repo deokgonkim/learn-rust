@@ -4,6 +4,8 @@ use core::time::Duration;
 
 fn main() {
     let (tx, mut rx) = trpl::channel();
+    tx.send("Aloha");
+
     let future0 = async {
         let future = async move {
             println!("Begun Future1");
